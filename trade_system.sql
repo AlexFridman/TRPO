@@ -1,0 +1,246 @@
+USE [master]
+GO
+/****** Object:  Database [DefaultConnection]    Script Date: 05-Mar-17 14:17:35 ******/
+CREATE DATABASE [DefaultConnection]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'DefaultConnection', FILENAME = N'C:\Users\AlexF\Downloads\Telegram Desktop\DefaultConnection.mdf' , SIZE = 3264KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+ LOG ON 
+( NAME = N'DefaultConnection_log', FILENAME = N'C:\Users\AlexF\Downloads\Telegram Desktop\DefaultConnection_log.ldf' , SIZE = 1024KB , MAXSIZE = UNLIMITED, FILEGROWTH = 10%)
+GO
+ALTER DATABASE [DefaultConnection] SET COMPATIBILITY_LEVEL = 120
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [DefaultConnection].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [DefaultConnection] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [DefaultConnection] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [DefaultConnection] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [DefaultConnection] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [DefaultConnection] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [DefaultConnection] SET READ_COMMITTED_SNAPSHOT ON 
+GO
+ALTER DATABASE [DefaultConnection] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [DefaultConnection] SET  MULTI_USER 
+GO
+ALTER DATABASE [DefaultConnection] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [DefaultConnection] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [DefaultConnection] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [DefaultConnection] SET TARGET_RECOVERY_TIME = 0 SECONDS 
+GO
+ALTER DATABASE [DefaultConnection] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [DefaultConnection] SET QUERY_STORE = OFF
+GO
+USE [DefaultConnection]
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET MAXDOP = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET LEGACY_CARDINALITY_ESTIMATION = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET PARAMETER_SNIFFING = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET QUERY_OPTIMIZER_HOTFIXES = PRIMARY;
+GO
+USE [DefaultConnection]
+GO
+/****** Object:  Table [dbo].[__MigrationHistory]    Script Date: 05-Mar-17 14:17:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[__MigrationHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ContextKey] [nvarchar](300) NOT NULL,
+	[Model] [varbinary](max) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK_dbo.__MigrationHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC,
+	[ContextKey] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Categories]    Script Date: 05-Mar-17 14:17:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Categories](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](max) NULL,
+ CONSTRAINT [PK_dbo.Categories] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Customers]    Script Date: 05-Mar-17 14:17:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Customers](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](max) NULL,
+ CONSTRAINT [PK_dbo.Customers] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Goods]    Script Date: 05-Mar-17 14:17:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Goods](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](max) NULL,
+	[Price] [decimal](18, 2) NOT NULL,
+	[Category_Id] [int] NULL,
+	[TradingOrder_Id] [int] NULL,
+ CONSTRAINT [PK_dbo.Goods] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[TradingOrders]    Script Date: 05-Mar-17 14:17:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TradingOrders](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PaymentAmount] [int] NOT NULL,
+	[Date] [datetime] NOT NULL,
+	[PaymentType] [int] NOT NULL,
+	[Request_Id] [int] NULL,
+ CONSTRAINT [PK_dbo.TradingOrders] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[TradingRequests]    Script Date: 05-Mar-17 14:17:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TradingRequests](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Description] [nvarchar](max) NULL,
+	[Date] [datetime] NOT NULL,
+	[Customer_Id] [int] NULL,
+ CONSTRAINT [PK_dbo.TradingRequests] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Index [IX_Category_Id]    Script Date: 05-Mar-17 14:17:35 ******/
+CREATE NONCLUSTERED INDEX [IX_Category_Id] ON [dbo].[Goods]
+(
+	[Category_Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_TradingOrder_Id]    Script Date: 05-Mar-17 14:17:35 ******/
+CREATE NONCLUSTERED INDEX [IX_TradingOrder_Id] ON [dbo].[Goods]
+(
+	[TradingOrder_Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Request_Id]    Script Date: 05-Mar-17 14:17:35 ******/
+CREATE NONCLUSTERED INDEX [IX_Request_Id] ON [dbo].[TradingOrders]
+(
+	[Request_Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Customer_Id]    Script Date: 05-Mar-17 14:17:35 ******/
+CREATE NONCLUSTERED INDEX [IX_Customer_Id] ON [dbo].[TradingRequests]
+(
+	[Customer_Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Goods]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Goods_dbo.Categories_Category_Id] FOREIGN KEY([Category_Id])
+REFERENCES [dbo].[Categories] ([Id])
+GO
+ALTER TABLE [dbo].[Goods] CHECK CONSTRAINT [FK_dbo.Goods_dbo.Categories_Category_Id]
+GO
+ALTER TABLE [dbo].[Goods]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Goods_dbo.TradingOrders_TradingOrder_Id] FOREIGN KEY([TradingOrder_Id])
+REFERENCES [dbo].[TradingOrders] ([Id])
+GO
+ALTER TABLE [dbo].[Goods] CHECK CONSTRAINT [FK_dbo.Goods_dbo.TradingOrders_TradingOrder_Id]
+GO
+ALTER TABLE [dbo].[TradingOrders]  WITH CHECK ADD  CONSTRAINT [FK_dbo.TradingOrders_dbo.TradingRequests_Request_Id] FOREIGN KEY([Request_Id])
+REFERENCES [dbo].[TradingRequests] ([Id])
+GO
+ALTER TABLE [dbo].[TradingOrders] CHECK CONSTRAINT [FK_dbo.TradingOrders_dbo.TradingRequests_Request_Id]
+GO
+ALTER TABLE [dbo].[TradingRequests]  WITH CHECK ADD  CONSTRAINT [FK_dbo.TradingRequests_dbo.Customers_Customer_Id] FOREIGN KEY([Customer_Id])
+REFERENCES [dbo].[Customers] ([Id])
+GO
+ALTER TABLE [dbo].[TradingRequests] CHECK CONSTRAINT [FK_dbo.TradingRequests_dbo.Customers_Customer_Id]
+GO
+USE [master]
+GO
+ALTER DATABASE [DefaultConnection] SET  READ_WRITE 
+GO
